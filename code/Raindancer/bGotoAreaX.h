@@ -146,16 +146,16 @@ public:
 		bb.driveDirection = DD_LINE_FOLLOW;
 
 		// If left coil outside, rotate CC until right is inside
-		
+
 		if (waitForRightInside == true) {
 			if (bb.perimeterSensoren.isRightInside()) {
 				waitForRightInside = false;
 			}
 		}
-		
+
 		// Follow line
 		if (waitForRightInside == false) {
-			if (error < 0.0f) { //Set Speed Outside Perimeter 
+			if (error < 0.0f) { //Set Speed Outside Perimeter
 
 				if (bb.perimeterSensoren.isLeftOutside() == true) {
 					bb.cruiseSpeed = 25;

@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "buzzer.h"
 
-#define BATTERYFACTOR_CS  11.0f // ((100.0f+10.0f)/10.0f) ((R1+R2)/R2)  ADC voltage to charge voltage. 10.9 determined by measuring 
+#define BATTERYFACTOR_CS  11.0f // ((100.0f+10.0f)/10.0f) ((R1+R2)/R2)  ADC voltage to charge voltage. 10.9 determined by measuring
 #define CURRENTFACTOR_CS  0.5f         // ADC voltage to current ampere
 
 extern BuzzerClass Buzzer;
@@ -87,7 +87,7 @@ public:
 		doChargeEnable = LOW;
 		errorHandler.setInfo(F("Relay Off\r\n"));
 
-		
+
     }
 
 
@@ -128,10 +128,10 @@ public:
 
             if(isBatFull()) {
                 sprintf(errorHandler.msg,"!03,FULL adcCV: %f CV: %f  adcCC: %f  CC: %f Watt: %f\r\n", sensorValueCV, chargeVoltage, sensorValueCC, chargeCurrent, chargeVoltage*chargeCurrent);
-                errorHandler.setInfo(); 
+                errorHandler.setInfo();
             } else {
                 sprintf(errorHandler.msg,"!03,CHARGING adcCV: %f CV: %f  adcCC: %f  CC: %f Watt: %f\r\n", sensorValueCV, chargeVoltage, sensorValueCC, chargeCurrent, chargeVoltage*chargeCurrent);
-                errorHandler.setInfo(); 
+                errorHandler.setInfo();
 
             }
             count = 0;
@@ -167,7 +167,7 @@ public:
 
 		errorHandler.setInfo(F("!03,ChargeSystem measure offsetCC\r\n"));
 		errorHandler.setInfoNoLog(F("!03,"));
-		offsetCC = aiCHARGEVOLTAGE.measureOffsetVoltage();
+		offsetCC = aiCHARGECURRENT.measureOffsetVoltage();
 		errorHandler.setInfo(F("  offsetCC: %f\r\n"), offsetCC);
 	}
 

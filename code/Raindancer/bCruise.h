@@ -92,7 +92,7 @@ public:
 
 	void calcOuterCm(float _r) {
 		float d = CONF_DISTANCE_BETWEEN_WHEELS_CM;
-		waitUntilOuterCmReached = (PI * (2 * _r + d)) / CONF_SPIRAL_SEGMENTS; // cm for 360 degree divided by 16 to get cm for 22,5 degrees 
+		waitUntilOuterCmReached = (PI * (2 * _r + d)) / CONF_SPIRAL_SEGMENTS; // cm for 360 degree divided by 16 to get cm for 22,5 degrees
 	}
 
 	virtual NodeStatus onUpdate(Blackboard& bb) {
@@ -253,7 +253,7 @@ public:
 			bb.driveDirection = DD_FORWARD;
 			//errorHandler.setInfo("!03,TCruiseStopped SUCCESS\r\n" );
 #if CONF_DISABLE_CHARGINGSTATION == true
-			errorHandler.setError("BAT LOW\r\n");
+			errorHandler.setError(F("BAT LOW\r\n"));
 #endif
 
 			return BH_SUCCESS;
@@ -342,8 +342,8 @@ public:
 
 
 	virtual void onInitialize(Blackboard& bb) {
-		
-		
+
+
 
 		bb.motor.rotateCM(CONF_DRIVE_MAX_CM, bb.cruiseSpeed);
 		bb.driveDirection = DD_FORWARD;
@@ -430,7 +430,7 @@ public:
 					bb.flagCruiseSpiral = true;
 				}
 			}
-			if ((millis() - bb.lastTimeSpiralStarted > 180000ul) && bb.mowMotorSensor.checkIfUnderLoad()) { // Alle 3 Minuten Spirale starten wenn motor belastet
+			if ((millis() - bb.lastTimeSpiralStarted > 65000ul) && bb.mowMotorSensor.checkIfUnderLoad()) { // Alle 3 Minuten Spirale starten wenn motor belastet
 				bb.flagCruiseSpiral = true;
 			}
 		}
@@ -564,4 +564,3 @@ public:
 
 
 #endif
-

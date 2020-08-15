@@ -71,13 +71,13 @@ public:
 		current = 0;
 		motorMowSenseCounter = 0;
 		motorMowPowerMax = 75;
-		scale = 2.4f; // found out by tests 1.905f;  //0.525V/A
+		scale = 1.0f; // found out by tests 1.905f;  //0.525V/A
 		offset = 0;
 		lastTimeMotorMowStucked = 0;
 		showValuesOnConsole = false;
 		motorUnderHeavyLoad = false;
 		//timeUnderHeavyLoad = 0;
-	   //measureOffset(); 
+	   //measureOffset();
 	   //sensorValue = aiMotorMowCurrent.read() - offset; // Converts and read the analog input value (value from 0.0 to 1.0)
 		sensorValue = 0;
 
@@ -207,4 +207,3 @@ public:
 };
 
 #endif
-
