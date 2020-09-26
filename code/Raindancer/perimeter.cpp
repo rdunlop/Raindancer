@@ -127,7 +127,8 @@ void TPerimeterThread::CaluculateInsideOutsideL(int32_t magl)
     // Overwrite values when inside GPS polygon
     if (CONF_USE_GPS_POLYGON) // Check if the gps signal shows, that robot is inside the defined gps polygon.
         {
-        if (gps.flagInsidePolygon && abs(magnetudeL) < CONF_PER_THRESHOLD_IGNORE_GPS) // only check if amplitude is lower than threshold
+          // Prevent from letting GPS override OUTSIDE of perimeter
+        if (gps.flagInsidePolygon && abs(magnetudeL) < CONF_PER_THRESHOLD_IGNORE_GPS && magnetudeL > 0) // only check if amplitude is lower than threshold
             {
             signalCounterLFast = 2;
             signalCounterL = 3;
@@ -193,7 +194,7 @@ void TPerimeterThread::CaluculateInsideOutsideR(int32_t magr)
     // Overwrite values when inside GPS polygon
     if (CONF_USE_GPS_POLYGON) // Check if the gps signal shows, that robot is inside the defined gps polygon.
         {
-        if (gps.flagInsidePolygon && abs(magnetudeR) < CONF_PER_THRESHOLD_IGNORE_GPS) // only check if amplitude is lower than threshold
+        if (gps.flagInsidePolygon && abs(magnetudeR) < CONF_PER_THRESHOLD_IGNORE_GPS && magnetudeR > 0) // only check if amplitude is lower than threshold
             {
             signalCounterRFast = 2;
             signalCounterR = 3;
@@ -261,7 +262,10 @@ void TPerimeterThread::UpdateState(EPerReceiveState t)
                     {
                     //sprintf(errorHandler.msg, "!03,ML: %d MR: %d  CL:%d CR: %d\r\n", magnetudeL, magnetudeR, signalCounterL, signalCounterR);
                     //sprintf(errorHandler.msg, "!03,ML: %d MR: %d magMax:%d magMedL: %d magMedR: %d\r\n", magnetudeL, magnetudeR, magMax, (int)curMaxL,  (int)curMaxR);
-                    sprintf(errorHandler.msg, "!03,ML: %d/%d/%d MR: %d/%d/%d magMax:%d magMedL%%: %d magMedR%%: %d\r\n", magnetudeL, signalCounterL, signalCounterLFast, magnetudeR, signalCounterR, signalCounterRFast, magMax, (int)curMaxL * 100 / magMax, (int)curMaxR * 100 / magMax);
+                    sprintf(errorHandler.msg, "!03,ML: %d/%d/%d MR: %d/%d/%d magMax:%d magMedL%%: %d magMedR%%: %d\r\n",
+                      magnetudeL, signalCounterL, signalCounterLFast,
+                      magnetudeR, signalCounterR, signalCounterRFast,
+                      magMax, (int)curMaxL * 100 / magMax, (int)curMaxR * 100 / magMax);
                     errorHandler.setInfoNoLog();
                     }
                 }
