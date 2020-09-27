@@ -116,7 +116,7 @@ Disclaimer: this code is "AS IS" and for educational purpose only.
 
 #define CONF_ACTVATE_AUTO_SPIRAL        true
 
-#define CONF_DISABLE_FAST_RETURN        true    // Disables fast retrun
+#define CONF_DISABLE_FAST_RETURN        false    // Disables fast retrun
 
 #define CONF_DISABLE_CHARGINGSTATION    true    // If set to true, robot don't drive to chargingstation if batttery is low. After bat low, robot drives to perimeter
 // and set error: "bat low". Then you should power of the robot, connect the charging contacts and power on the robot to charge.
@@ -125,7 +125,7 @@ Disclaimer: this code is "AS IS" and for educational purpose only.
 
 #define CONF_PASS_THROUGH_CHARGING_STATION false //the mower can go through the station
 #define CONF_HEAD_CHARGING_STATION         true  //the mower can't go through the station
-#define CONF_HEAD_CHARGING_DRIVE_BACK_CM   100   //when the mower leaving the head charging station, how far it should drive back
+#define CONF_HEAD_CHARGING_DRIVE_BACK_CM   200   //when the mower leaving the head charging station, how far it should drive back
 #define CONF_HEAD_CHARGING_DRIVE_FORW_CM    50   //when the mower drove back and then rotates 90 degree, how far it should run forward that both coils securely inside
 
 #define CONF_USE_ZONE_RECOGNITION        false
