@@ -205,16 +205,16 @@ Disclaimer: this code is "AS IS" and for educational purpose only.
 // if the robot measure a gps signal inside the polygon, it will override the perimetersignal and
 // think it is inside the perimeter.
 const float CONF_LAT_POLYGON_Y[] = {
-  42.340617f,
+  42.340711f,
   42.340497f,
-  42.340473f,
-  42.340703f
+  42.340477f,
+  42.340699f
 }; // Latitude polygon points
 const float CONF_LON_POLYGON_X[] = {
--88.050300f,
+-88.050340f,
 -88.050240f,
--88.050377f,
--88.050433f
+-88.050408f,
+-88.050473f,
 }; // Longitudinal polygon points
 const int   CONF_NUMBER_OF_POLYGON_POINTS = 4;  // The number of the ploygon points
 
