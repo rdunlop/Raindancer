@@ -81,7 +81,7 @@ void TClosedLoopControlThread::enableDefaultRamping()
 void TClosedLoopControlThread::enablePerTrackRamping()
 {
 	kfr = 0.45f;
-	kp = 6;
+	kp = 10;
 	resetPDFF();
 	if (flagShowEnableRamping) {
 		errorHandler.setInfoNoLog(F("sp: %f cur: %f pwm: %f eRPM: %f iTerm: %f T\r\n"),  setpointRPM, current_speedRPM, pdffOutputPWM, errorRPM, ITermRPM);

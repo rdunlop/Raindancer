@@ -116,9 +116,9 @@ Disclaimer: this code is "AS IS" and for educational purpose only.
 
 #define CONF_ACTVATE_AUTO_SPIRAL        true
 
-#define CONF_DISABLE_FAST_RETURN        false    // Disables fast retrun
+#define CONF_DISABLE_FAST_RETURN        true    // Disables fast retrun
 
-#define CONF_DISABLE_CHARGINGSTATION    true    // If set to true, robot don't drive to chargingstation if batttery is low. After bat low, robot drives to perimeter
+#define CONF_DISABLE_CHARGINGSTATION    false    // If set to true, robot don't drive to chargingstation if batttery is low. After bat low, robot drives to perimeter
 // and set error: "bat low". Then you should power of the robot, connect the charging contacts and power on the robot to charge.
 // If you have an open switch between battery and PCB1.3 then the DUE is powered through charging contacts only while battery is disconnnected.
 // To prevent this, remove diode D37. If not EF1 must be 5A minimum. 1.6A will be destroyed while connecting charing contacts with open battery switch.

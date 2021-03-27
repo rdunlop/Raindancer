@@ -145,8 +145,8 @@ public:
     static const int CRUISE_SPEED_OBSTACLE = 40;  // Lowest Speed to drive
 	static const int CRUISE_ROTATE_HIGH = 40;
 	static const int CRUISE_ROTATE_LOW = 25;
-	static const int LINEFOLLOW_SPEED_HIGH = 50;
-	static const int LINEFOLLOW_SPEED_LOW = 50;
+	static const int LINEFOLLOW_SPEED_HIGH = 30;
+	static const int LINEFOLLOW_SPEED_LOW = 30; // UNUSED
     static const int SHORTWAYCOUNT  = 3; //3
 
 

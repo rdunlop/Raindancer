@@ -115,6 +115,9 @@ public:
 		// Calculate Speed
 		//============================================
 		double error = bb.perimeterSensoren.magnetudeR0; //important use magnetudeR0 here with includes 0 also
+    // see if this error value changes while we are ON the line. Could we target
+    // a particular value without crossing the sensor line?
+    // this would show up in the output as MR: !!/xx/xx
 		if (error < 0) {
 			error = -1;
 		}
@@ -153,7 +156,10 @@ public:
 			}
 		}
 
-		// Follow line
+    // errorHandler.setInfo(F("!03,TlineFollow error: %f. waitFRI: %s, output: %f\r\n"), error, waitForRightInside ? "Y" : "N", Output);
+    // ERROR: -1 : outside
+    // ERROR: 1 : inside
+		// Follow line TUNE THIS
 		if (waitForRightInside == false) {
 			if (error < 0.0f) { //Set Speed Outside Perimeter
 
@@ -164,52 +170,63 @@ public:
 					bb.motor.R->setSpeed(25);
 					waitForRightInside = true;
 				}
-				else if ((millis() - lastTransitionTime) > 2000) { // If more than 3.5sec Outside rotate full
+				else if ((millis() - lastTransitionTime) > 5000) { // If more than 3.5sec Outside rotate full
+          // errorHandler.setInfo(F("!09 - cross in 2.0\r\n"));
 					bb.cruiseSpeed = 25;
 					bb.driveDirection = DD_ROTATECC;
 					bb.motor.L->setSpeed(-25);
 					bb.motor.R->setSpeed(25);
 				}
-				else if ((millis() - lastTransitionTime) > 1500) { // If more than 2.8sec Outside rotate more aggressive
-					bb.motor.L->setSpeed((bb.cruiseSpeed + Output));
-					bb.motor.R->setSpeed((bb.cruiseSpeed +10));
-				}
-				else if ((millis() - lastTransitionTime) > 1000) { // If more than 2sec Outside rotate aggressive
-					bb.motor.L->setSpeed((bb.cruiseSpeed + Output));
-					bb.motor.R->setSpeed((bb.cruiseSpeed +5));
-				}
+				// else if ((millis() - lastTransitionTime) > 1500) { // If more than 2.8sec Outside rotate more aggressive
+    //       errorHandler.setInfo(F("!10 - cross in 1.5\r\n"));
+				// 	bb.motor.L->setSpeed((bb.cruiseSpeed + Output));
+				// 	bb.motor.R->setSpeed((bb.cruiseSpeed +10));
+				// }
+				// else if ((millis() - lastTransitionTime) > 1000) { // If more than 2sec Outside rotate aggressive
+    //       errorHandler.setInfo(F("!11 - cross in 1.0\r\n"));
+				// 	bb.motor.L->setSpeed((bb.cruiseSpeed + Output));
+				// 	bb.motor.R->setSpeed((bb.cruiseSpeed +5));
+				// }
 				else {
+          // errorHandler.setInfo(F("!04,TlineFollow L: %d, R: %d\r\n"), bb.cruiseSpeed + Output, bb.cruiseSpeed);
+          // Output is Negative, so we add it
 					bb.motor.L->setSpeed((bb.cruiseSpeed + Output));
 					bb.motor.R->setSpeed((bb.cruiseSpeed));
 				}
 
 			}
 			else { //Set Speed Inside Perimeter
-
+        // trying to move so that the sensor is slightly outside
 				if (bb.perimeterSensoren.isLeftOutside() == true) {
+          // too far outside, move back quickly
 					bb.cruiseSpeed = 25;
 					bb.driveDirection = DD_ROTATECC;
 					bb.motor.L->setSpeed(-25);
 					bb.motor.R->setSpeed(25);
 					waitForRightInside = true;
 				}
-				else if ((millis() - lastTransitionTime) > 1800) { // // If more than 2sec inside rotate full
+				else if ((millis() - lastTransitionTime) > 5000) { // // If more than 2sec inside rotate full
+          // errorHandler.setInfo(F("!06 turnback 1.8\r\n"));
 					bb.cruiseSpeed = 25;
 					bb.driveDirection = DD_ROTATECW;
 					bb.motor.L->setSpeed(25);
 					bb.motor.R->setSpeed(-25);
 				}
-				else if ((millis() - lastTransitionTime) > 1500) { // If more than 1.5sec inside rotate more aggressive
-					bb.motor.L->setSpeed((bb.cruiseSpeed + 10));
-					bb.motor.R->setSpeed(-35);
-				}
-				else if ((millis() - lastTransitionTime) > 1000) { // If more than 1sec inside rotate aggressive
-					bb.motor.L->setSpeed((bb.cruiseSpeed + 10)); //50+10=60
-					bb.motor.R->setSpeed(-25);  // -8
-				}
+				// else if ((millis() - lastTransitionTime) > 1500) { // If more than 1.5sec inside rotate more aggressive
+    //       errorHandler.setInfo(F("!07 turnback 1.5\r\n"));
+				// 	bb.motor.L->setSpeed((bb.cruiseSpeed + 10));
+				// 	bb.motor.R->setSpeed(-35);
+				// }
+				// else if ((millis() - lastTransitionTime) > 1000) { // If more than 1sec inside rotate aggressive
+    //       errorHandler.setInfo(F("!08 turnback 1.0\r\n"));
+				// 	bb.motor.L->setSpeed((bb.cruiseSpeed + 10)); //50+10=60
+				// 	bb.motor.R->setSpeed(-25);  // -8
+				// }
 				else {
-					bb.motor.L->setSpeed((bb.cruiseSpeed + 5)); //50+10=60
-					bb.motor.R->setSpeed((bb.cruiseSpeed - 20)); //50-25=25
+          // errorHandler.setInfo(F("!05,TlineFollow L: %d, R: %d\r\n"), bb.cruiseSpeed, bb.cruiseSpeed - Output);
+					bb.motor.L->setSpeed((bb.cruiseSpeed)); //50+10=60
+          // Output is Positive, so we subtract it
+					bb.motor.R->setSpeed((bb.cruiseSpeed - Output)); //50-25=25 // adjusted from 20
 
 				}
 			}
